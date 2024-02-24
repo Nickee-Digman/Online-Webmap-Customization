@@ -1,0 +1,60 @@
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-
+scale=1, maximum-scale=1, user-scalable=no" />
+  <title> Online Web Customization Exercise</title>
+  <style>
+    html,
+    body,
+    #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+  <link rel="stylesheet" href="https://js.arcgis.com/4.28/esri/themes/light/main.css">
+  <script src="https://js.arcgis.com/4.28/"></script>
+
+  <script>
+    require([
+      "esri/config",
+      "esri/widgets/Sketch",
+      "esri/Map",
+      "esri/views/MapView",
+      "esri/widgets/Home"
+    ], function(esriconfig, Sketch, Map, MapView, homeWidget) {
+      esriconfig.apiKey =
+        "AAPKfcb0c5be855c4a74a0a2a093a97144f7yjXL1k31-C0OPBIMAjVXxFSMJJd18OG-ol0nJNFp5UemgWrXYmPiDKTGX4weB86F";
+      const map = new Map({
+        basemap: "arcgis/topographic" //basemap styles service
+      });
+      const view = new MapView({
+        map: map,
+        center: [90, 45], // Longitude, latitude
+        zoom: 5, // Zoom level
+        container: "viewDiv" // Div element
+      });
+      view.when(() => {
+        const sketch = new Sketch({
+          view: view,
+          // graphic will be selected as soon as it is created
+          creationMode: "update"
+        });
+        view.ui.add(sketch, "top-right");
+      });
+      homeWidget = new homeWidget({
+        view: view
+      });
+      view.ui.add(homeWidget, "top-left");
+    });
+  </script>
+</head>
+
+<body>
+  <div id="viewDiv"></div>
+</body>
+
+</html>
